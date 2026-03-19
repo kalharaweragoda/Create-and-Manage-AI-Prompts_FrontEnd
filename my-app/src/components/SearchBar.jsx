@@ -7,11 +7,10 @@ const PromptManager = () => {
     const [promptText, setPromptText] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
 
-    // Backend එකෙන් PDF templates ලබා ගැනීම
     useEffect(() => {
         const fetchTemplates = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/v1/prompts');
+                const response = await axios.get('http://localhost:8080/prompts');
                 setTemplates(response.data);
             } catch (error) {
                 console.error("Error fetching templates:", error);
@@ -20,7 +19,6 @@ const PromptManager = () => {
         fetchTemplates();
     }, []);
 
-    // Template එකක් click කළ විට search bar එකට text එක යැවීම
     const handleTemplateClick = (content) => {
         setPromptText(content);
         document.getElementById("main-prompt-input").focus();
@@ -29,7 +27,7 @@ const PromptManager = () => {
     const handleSendPrompt = async () => {
         if (!promptText) return;
         try {
-            await axios.post('http://localhost:8080/api/v1/prompts/generate', { prompt: promptText });
+            await axios.post('http://localhost:8080/prompts', { prompt: promptText });
             alert("Prompt sent successfully!");
             setPromptText("");
         } catch (error) {
@@ -73,7 +71,7 @@ const PromptManager = () => {
             {/* Main Content: Prompt Editor */}
             <div style={styles.mainContent}>
                 <div style={styles.editorArea}>
-                    {/* මෙහි Prompt එකෙන් generate වන report එක පෙන්විය හැක */}
+                    {}
                 </div>
 
                 {/* Bottom Search Bar */}
